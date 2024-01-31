@@ -1,0 +1,84 @@
+---
+title: "Demystify re-rendering in React"
+excerpt: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Praesent elementum facilisis leo vel fringilla est ullamcorper eget. At imperdiet dui accumsan sit amet nulla facilities morbi tempus."
+coverImage: "/assets/blog/hello-world/cover.jpg"
+date: "2024-01-30T05:35:07.322Z"
+author:
+  name: "Chan Yat Fu"
+  picture: "/assets/blog/authors/tim.jpeg"
+ogImage:
+  url: "/assets/blog/hello-world/cover.jpg"
+---
+
+
+## Remark
+This article is a summarisation of the book [Advanced React](hellow.fsd) by Nadia Makarevich. I highly recommend you to read the book if you want to learn more about React.
+- This article assumes that you have some basic understanding of React's state, how it affects the re-rendering process, and the Virtual DOM.
+- The component mentioned in the following article refers to the functional component in React.
+
+
+## Common Misconception
+
+- Re-render only occurs when the props of a component has changed.
+- Use `React.memo` and `useCallback` as the primary solution to prevent excessive re-rendering.
+
+## Component VS Element: What is the difference?
+
+When you write a component in React, it usually looks something like this:
+```jsx
+const Component = () => {
+  return (
+    <Children />
+  )
+}
+```
+
+The jsx syntax (`<Children />`) is actually a syntax sugar for `React.createElement(Children)`. Therefore, the above code is equivalent to:
+
+```jsx
+const Component = () => {
+  return (
+    React.createElement(Children, null, null)
+  )
+}
+```
+
+`React.createElement` returns a ReactElement, which is a javascript object that represents a DOM node. Take `<Children />` as an example, the object return would be:
+```jsx
+{
+  type: Children,
+  props: {},
+  // ... some other field
+}
+```
+
+if we return a h1 tag instead, the type would be a string:
+```jsx
+const Component = () => {
+  return (
+    <h1>This is a title</h1>
+  )
+}
+```
+```jsx
+{
+  type: "h1",
+  // ... some other field
+}
+```
+
+Therefore a Component is simply a function that return a Element (which is a JavaScript object).
+
+## How does it affect the re-render process?
+
+Now that we know the difference between a Component and a Element. Let's take a look at how they affect the re-render process in React.
+
+A re-render is triggered by state change. What it does is simply executing the component function again, which will then returns a new Element object. The new Element object is then compared with the old Element object. If they are the same, the re-render process will stop propagating. Otherwise, it will propagate the the nested components.
+
+But there is a catch. The reference of the Element is compared. That means a re-render will (almost) certainly keep on ripple down to a component's children, as a new Element object is created every time the component is executed. Therefore, no matter if the props of a component has changed or not, a re-render will always occur (assumed that no memo is used) if the parent component re-render.
+
+## Re-render = DOM update?
+
+Short answer: No. a re-render does not necessarily mean a DOM update, but a DOM update is always triggered by a re-render.
+
+The re-render process execute the component function and obtain a new set of Element object, which forms a new Virtual DOM. The old and the new Virtual DOM is then compared, which is called the reconciliation process. Keeps in mind that only that part that have been re-rendered will be compared. The reconciliation process determined if an update is needed, and if so, what is the update. The update is then applied to the real DOM.
