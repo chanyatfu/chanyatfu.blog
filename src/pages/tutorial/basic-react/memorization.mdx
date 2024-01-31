@@ -1,0 +1,26 @@
+## What is memorization?
+
+Memorization is a technique that allows you to store the results of something. That something can be a function reference, a result returned by a function, or an element.
+
+## Why use memorization?
+The largest motivation for using memorization is to avoid repeating expensive operations. For example, a fucntion that takes a long time to execute, or a component that takes a long time to render. This also included prevent re-rendering in React, as you might remenber from the previous chapter that React decides if the nested components would need to re-render or not by comparing the reference values return by its render function.
+
+## `useCallback` and `useMemo`
+
+`useMemo` and `useCallback` are similar to `useEffect` in some sense. You define some dependencies to determine how to hooks react to it.
+
+`useCallback` received two arugments - a function and an array of dependencies, and return a memorized version of the function. The function will only be re-created if one of the dependencies has changed. The way it works can be illustrated by the following code.
+
+```ts
+let oldFunction = null;
+
+function useCallback(fn: Function, deps: Array<any>) {
+  deps.foreach(dep => {
+    if (dep.hasChanged) {
+      oldFunction = fn;
+    }
+  })
+  return oldFunction;
+}
+```
+

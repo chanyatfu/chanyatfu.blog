@@ -1,0 +1,6 @@
+{
+  "isr": "Incremental Static Regeneration (ISR)",
+  "ssr": "Server Side Rendering (SSR)",
+  "hydration": "Hydration",
+  "server-components": "React Server Component (RSC)"
+}

@@ -1,4 +1,8 @@
 {
-  "re-rendering": "Re-rendering in React",
-  "memorization-in-react": "Memorization in React"
+  "syntactic-sugar": "Syntactic Sugar",
+  "re-rendering": "Re-rendering",
+  "memorization": "Memorization",
+  "portals": "Portals",
+  "render-props": "Render Props",
+  "higher-order-components": "Higher-Order Components"
 }

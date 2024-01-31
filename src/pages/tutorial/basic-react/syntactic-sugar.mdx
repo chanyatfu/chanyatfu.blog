@@ -1,0 +1,54 @@
+## Overview
+This chapter summarize the common syntactic sugar you might encounter in React, and their underlying implementation.
+
+## Why should I care about this?
+The syntax sugar in React abstracts away the underlying implementation, which is great for daily development. But it also makes it harder in understanding the principle and implementaion in React.
+
+## JSX
+React component return JSX, which might looks something like this:
+```tsx
+const Component = () => {
+  return (
+    <main className="hello">
+      <Welcome>Welcome to demistify.react</Welcome>
+      This is the first chapter.
+    </main>
+  )
+}
+```
+
+JSX is a syntax sugar for `React.createElement(type, props, ...children)`, which return a JavaScript object. The above JSX is equivalent to:
+```tsx
+const Component = () => {
+  return createElement(
+    'main',
+    { className: 'hello' },
+    createElement(Welcome, null, 'Welcome to demistify.react'),
+    'This is the first chapter.'
+  )
+}
+```
+
+
+## The `children` prop
+Sometimes you might want to pass children to a component like this:
+```tsx
+const Component = () => {
+  return (
+    <Outer>
+      <Inner />
+    </Outer>
+  )
+}
+```
+
+The above JSX is equivalent to:
+```tsx
+const Component = () => {
+  return (
+    <Outer children={<Inner />} />
+  )
+}
+```
+
+The `children` prop works just like other prop. The only difference is that React provide an alternative way for writing it.

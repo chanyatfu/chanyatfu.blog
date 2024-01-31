@@ -1,0 +1,25 @@
+## Advanced React
+
+**Website**: [Advanced React](https://www.advanced-react.com)\
+**Author**: Nadia Makarevich
+
+This book instead of focusing on trivial React concepts, it takes a deep dive into the React inner working, and expose common misconceptions and pitfalls that you would counter in you daily React development.
+
+## Summary
+
+### Chapter 1. Intro to re-renders
+- Re-rendering is triggered and only triggered by state updates.
+- The re-render will propagate to all nested components, except when `React.memo` is used and the props are the same.
+- Try re-composition and moving state down before using memoization.
+- Keep in mind that custom hooks abstract away the implementation details, including hidden state updates, which can trigger re-renders
+- Decompose your components into smaller ones to avoid unnecessary re-renders.
+
+## Chapter 2. Elements, chidren as props, and re-renders
+- `children` is a props with syntactic sugar, other than that it works the same as any other props and you can pass it like `<A children={<B />} />`
+- JSX is a syntactic sugar for `React.createElement`, which returns a ReactElement.
+- Component is just a function that accepts props and return a ReactElement, and ReactElement is a plain object that contains the component type, props, etc.
+- The ReactElement return before and after re-render must be difference, as they are compared by reference, not value.
+- A re-render is basically executing the component function again, and compare the result with the previous one.
+- A DOM update will be trigger after the re-render if the diffing algorithm found any difference between the previous and current Virtual DOM.
+- If we pass `<A />` as a props to `<B />`, and `<B />` re-rendered. `<A />` would not nesessary re-render as its reference defined in the parent components. Only when `<A />` parent or `<A />` itself re-rendered, `<A />` would re-render.
+

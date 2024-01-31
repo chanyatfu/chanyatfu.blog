@@ -1,4 +1,7 @@
 {
   "index": "Welcome",
-  "basic-react": "Basic React"
+  "basic-react": "Basic React",
+  "react-server": "React Server",
+  "tools": "Tools",
+  "css": "CSS"
 }

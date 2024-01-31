@@ -8,6 +8,7 @@ const nextConfig = {
 const withNextra = createNextra({
   theme: 'nextra-theme-docs',
   themeConfig: './theme.config.jsx',
+  latex: true
 })
 
 export default withNextra(nextConfig);
