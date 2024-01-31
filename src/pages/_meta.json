@@ -10,12 +10,12 @@
       "pagination": false
     }
   },
-  "tutorial": {
-    "title": "Tutorial",
+  "digest": {
+    "title": "Digest",
     "type": "page"
   },
-  "book-list": {
-    "title": "Book List",
+  "books": {
+    "title": "Books",
     "type": "page"
   }
 }

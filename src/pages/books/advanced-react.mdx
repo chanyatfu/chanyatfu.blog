@@ -21,5 +21,5 @@ This book instead of focusing on trivial React concepts, it takes a deep dive in
 - The ReactElement return before and after re-render must be difference, as they are compared by reference, not value.
 - A re-render is basically executing the component function again, and compare the result with the previous one.
 - A DOM update will be trigger after the re-render if the diffing algorithm found any difference between the previous and current Virtual DOM.
-- If we pass `<A />` as a props to `<B />`, and `<B />` re-rendered. `<A />` would not nesessary re-render as its reference defined in the parent components. Only when `<A />` parent or `<A />` itself re-rendered, `<A />` would re-render.
+- If we pass `<A />` as a props to `<B />`, and `<B />` re-rendered. `<A />` would not nesessary re-render as its reference defined in the parent components. Only when `<A />` parent or `<A />` itself re-rendered, `<A />` would re-render. This could be used to optimize the performance.
 
