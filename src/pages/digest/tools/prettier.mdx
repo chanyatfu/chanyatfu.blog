@@ -1,0 +1,145 @@
+import UnderConstruction from "@/components/UnderConstruction";
+import { Tabs } from "nextra/components";
+
+<UnderConstruction />
+
+## What is Prettier
+
+Prettier is an formatter that enforces a consistent coding style without affecting the AST. The language it supports included:
+
+- JavaScript
+- JSX
+- Angular
+- Vue
+- Flow
+- TypeScript
+- CSS, Less, and SCSS
+- HTML
+- Ember/Handlebars
+- JSON
+- GraphQL
+- Markdown, including GFM and MDX v1
+- YAML
+
+For more detail about the formatting mechanism, please refer to the [offical documentation](https://prettier.io/docs/en/)
+
+## How does it differ from Linting (ESLint)?
+
+The following table shows the differences between Prettier and Linting:
+
+| Features    | Prettier                      | ESLint                                         |
+| ----------- | ----------------------------- | ---------------------------------------------- |
+| Focus       | Formats code                  | Finds potential problems, improve code quality |
+| Integration | Can run alongside with ESLint | Can include Prettier as a plugin               |
+
+## How to setup Prettier
+
+### Installation
+
+<Tabs items={["npm", "yarn", "pnpm"]}>
+  <Tabs.Tab>
+    ```bash copy npm install --save-dev --save-exact prettier ```
+  </Tabs.Tab>
+  <Tabs.Tab>```bash copy yarn add --dev --exact prettier ```</Tabs.Tab>
+  <Tabs.Tab>
+    ```bash copy pnpm add --save-dev --save-exact prettier ```
+  </Tabs.Tab>
+</Tabs>
+
+### Configuration File
+
+You can create a configuration file to customize the fomatting behaviour. The configuration file can be in JSON, JavaScript, or YAML format.
+
+JavaScript:
+
+- `prettier.config.js`
+  where you export the configuration object as default:
+
+```js filename="prettier.config.mjs" copy
+export default {
+  semi: false,
+  // other options...
+};
+```
+
+```js filename="prettier.config.cjs" copy
+module.exports = {
+  semi: false,
+  // other options...
+};
+```
+
+JSON:
+
+- `.prettierrc`
+- `.prettierrc.json`
+
+YAML:
+
+- `.prettierrc.yml`
+- `.prettierrc.yaml`
+
+### Ignore File
+
+You can also create a `.prettierignore` file to specify the file to be ignored by Prettier.
+
+```text filename=".prettierignore" copy
+build
+coverage
+```
+
+## Run Prettier
+
+You can run Prettier using the following command:
+
+<Tabs items={["npm", "yarn", "pnpm"]}>
+  <Tabs.Tab>```bash copy npx prettier . --write ```</Tabs.Tab>
+  <Tabs.Tab>```bash copy yarn prettier . --write ```</Tabs.Tab>
+  <Tabs.Tab>```bash copy pnpm exec prettier . --write ```</Tabs.Tab>
+</Tabs>
+
+You can also specify the file or directory to be formatted:
+
+```bash copy
+  npx prettier . --write some-directory/
+```
+
+```bash copy
+  npx prettier . --write some-directory/some-file.js
+```
+
+It is recommended to set up a scripts in the package.json file for formatting.
+
+```json filename="package.json"
+{
+  //...
+  "scripts": {
+    "format": "prettier . --write"
+  }
+}
+```
+
+```bash copy
+  npm run format
+```
+
+If you are also using ESLint, it is recommended to install `eslint-config-prettier` to avoid conflict with ESLint rules.
+
+### Editor Integration
+
+You can also integrate Prettier with your editor. For more detail, please refer to the [official documentation](https://prettier.io/docs/en/editors).
+For VS Code, install the [Prettier - Code formatter](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode) extension, and add the following line to the `settings.json` file:
+
+```json filename=".vscode/settings.json" copy
+{
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.formatOnSave": true
+}
+```
+
+### Remark
+
+Something about Prettier to be aware of:
+
+- the `printWidth` configuration in Prettier is different from the `max-len` configuration in ESLint. The `printWidth` configuration in Prettier is a reference. The formatted code might be longer than the specific `printWidth` value, while the `max-len` in ESLint value is the hard maximum.
+- You might want to set the `endOfLine` configuration to `lf` or `auto` to avoid the `LF` and `CRLF` issue.
